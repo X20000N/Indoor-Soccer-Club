@@ -12,11 +12,6 @@ import Sides.Layout_02Register;
 
 public class SafeUser {
 	
-	public SafeUser() {
-		
-		
-	}
-	
 	public static void SafeUserFromRegister(String Name, int ID) {
 
 		DateFormat formatter = new SimpleDateFormat("dd.MM.yyyy");
@@ -40,7 +35,7 @@ public class SafeUser {
 			fw.write(Layout_02Register.Register_Town_Tf.getText() + "\n");
 
 			fw.write(data + "\n");
-			fw.write(User.User_Data[7] + "\n");
+			fw.write("0" + "\n");
 			
 			fw.close();
 			
@@ -51,7 +46,6 @@ public class SafeUser {
 		String picture = "Users/" + Name + ".png";
 		
 		StartLayout.UploadFile(file, file);
-	//	StartLayout.UploadFile(picture, picture);
 	
 		// Delete
 		File f1 = new File(file); 
@@ -59,7 +53,6 @@ public class SafeUser {
 		
 		File f2 = new File(picture); 
 		f2.delete();
-		
 	}
 	
 	public static void SafeUserFromEdit() {
@@ -67,7 +60,7 @@ public class SafeUser {
 		try {
 			
 			FileWriter fw = new FileWriter("Users/" + User.User_Data[2] + ".usr");
-			
+						
 			fw.write(User.User_Data[0] + "\n");
 
 			fw.write(User.User_Data[1] + "\n");

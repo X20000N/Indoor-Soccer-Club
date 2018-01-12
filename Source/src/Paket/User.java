@@ -17,6 +17,7 @@ public class User {
 	public static String[] User_Data = new String[99];
 	
 	public static boolean InGroup = false;
+	public static boolean PlayGame = false;
 	public static String[] User_Group = new String[6];
 	
 	// User_Data:

@@ -9,6 +9,7 @@ import javax.swing.*;
 
 import GroupBar.GroupBar_Layout;
 import Paket.StartLayout;
+import Paket.User;
 import Sides.Layout_02Register;
 import Sides.Layout_11Profile;
 import Sides.Layout_12Games;
@@ -16,11 +17,11 @@ import Sides.Layout_13Overview;
 
 public class SideBar_Layout implements ActionListener {
 		
-	static JButton Menu_Profile = new JButton();
-	static JButton Menu_Games = new JButton();
-	static JButton Menu_Overview = new JButton();
+	private static JButton Menu_Profile = new JButton();
+	private static JButton Menu_Games = new JButton();
+	public static JButton Menu_Overview = new JButton();
 	
-	static JButton Menu_Register = new JButton(); 
+	private static JButton Menu_Register = new JButton(); 
 	
 	public SideBar_Layout() {
 					
@@ -42,7 +43,7 @@ public class SideBar_Layout implements ActionListener {
 
 		Menu_Overview.setText("Übersicht");
 		Menu_Overview.addActionListener(this);
-		Menu_Overview.setBackground(new Color(167,210,168));
+		Menu_Overview.setBackground(new Color(200,200,200));
 		Menu_Overview.setFont(Font_button);
 		Menu_Overview.setBounds(15,30+60*2,147,35);
 
@@ -108,7 +109,10 @@ public class SideBar_Layout implements ActionListener {
 
 		if ( e.getSource() == Menu_Overview && Paket.User.Login == true ) {
 						
-			Layout_13Overview.OpenSide(false);
+			if ( User.PlayGame == true ) {
+				
+				Layout_13Overview.OpenSide(false);
+			}
 		}
 
 		if ( e.getSource() == Menu_Register ) {

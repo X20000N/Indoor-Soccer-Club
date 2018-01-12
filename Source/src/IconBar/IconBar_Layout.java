@@ -13,14 +13,12 @@ import Sides.Layout_11Profile;
 
 public class IconBar_Layout implements ActionListener {
 	
-	JLabel IconBar = new JLabel();
-	Icon Icons = new ImageIcon(getClass().getResource(("/_drawable/Iconbar.png")));
+	private JLabel IconBar = new JLabel();
+	private Icon Icons = new ImageIcon(getClass().getResource(("/_drawable/Iconbar.png")));
 	
 	private JButton Icon_Back = new JButton();
 	private JButton Icon_Logout = new JButton();
 	private JButton Icon_Home = new JButton();
-
-	static Timer t = new Timer(3000, new ShowGroupMember());
 	
 	public IconBar_Layout() {
 		
@@ -54,45 +52,46 @@ public class IconBar_Layout implements ActionListener {
 		StartLayout.IconHeader.add(Icon_Home);
 	}
 	
-	public static void Enter_Group() {
-		
-		
-		
-	}
-	
-	static void startReloader() {
-		
-		t.start();		
-	}
-	
 	public void actionPerformed(ActionEvent e) {
 
 		if ( e.getSource() == Icon_Back ) {
 			
-			Layout_11Profile.OpenSide();
+			if ( User.Login == true ) {
+				
+				Layout_11Profile.OpenSide();
+			
+			} else {
+			
+				Layout_01Login.OpenSide();				
+			}
 		}
 		
 		if ( e.getSource() == Icon_Logout ) {
 			
-			User.Login = false;
-			SideBar.SideBar_Layout.InvisibleAllButtons();
-			GroupBar.GroupBar_Layout.CloseSide();
-			Layout_01Login.OpenSide();
+			if ( User.Login == true ) {
+
+				User.Login = false;
+				SideBar.SideBar_Layout.InvisibleAllButtons();
+				GroupBar.GroupBar_Layout.CloseSide();
+				Layout_01Login.OpenSide();
+		
+			} else {
+				
+				Layout_01Login.OpenSide();				
+			}
 		}
 
-		if ( e.getSource() == Icon_Home && User.Login == true ) {
+		if ( e.getSource() == Icon_Home ) {
 			
-			Layout_03Start.OpenSide();
+			if ( User.Login == true ) {
+				
+				Layout_03Start.OpenSide(); 
+
+			} else {
+				
+				Layout_01Login.OpenSide();				
+			}
 		}
 		
 	}
-	
-	static class ShowGroupMember implements ActionListener {
-		public void actionPerformed(ActionEvent e) {
-
-			
-			
-		}
-	}
-
 }

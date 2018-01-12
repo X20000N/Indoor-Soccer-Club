@@ -13,24 +13,24 @@ import Sides.Layout_03Start;
 
 public class GroupBar_Layout implements ActionListener {
 	
-	static JLabel Group_Layout = new JLabel();
+	private static JLabel Group_Layout = new JLabel();
 	
-	static JLabel Group_Headline = new JLabel();
+	private static JLabel Group_Headline = new JLabel();
 	
 	private static JButton Group_Create = new JButton();
 	private static JButton Group_Enter = new JButton();
 	
-	static JLabel Group_Member1 = new JLabel();
-	static JLabel Group_Member2 = new JLabel();
-	static JLabel Group_Member3 = new JLabel();
-	static JLabel Group_Member4 = new JLabel();
-	static JLabel Group_Member5 = new JLabel();
+	private static JLabel Group_Member1 = new JLabel();
+	private static JLabel Group_Member2 = new JLabel();
+	private static JLabel Group_Member3 = new JLabel();
+	private static JLabel Group_Member4 = new JLabel();
+	private static JLabel Group_Member5 = new JLabel();
 	
-	static String[] List = null;
+	private static String[] List = null;
 		
-	static boolean CloseCreateGroup = false;
+	private static boolean CloseCreateGroup = false;
 	
-	static Timer t = new Timer(1000, new GroupCheck());
+	private static Timer t = new Timer(1000, new GroupCheck());
 		
 	public GroupBar_Layout() {
 		
@@ -102,6 +102,17 @@ public class GroupBar_Layout implements ActionListener {
 		CloseSide();
 	}
 	
+	private static void ReloadMember() {
+		
+		Group_Headline.setText("Gruppe");
+		
+		Group_Member1.setVisible(false);
+		Group_Member2.setVisible(false);
+		Group_Member3.setVisible(false);
+		Group_Member4.setVisible(false);
+		Group_Member5.setVisible(false);
+	}
+	
 	public static void OpenSide() {
 		
 		Group_Layout.setVisible(true);
@@ -113,17 +124,6 @@ public class GroupBar_Layout implements ActionListener {
 		ReloadMember();
 	}
 	
-	static void ReloadMember() {
-		
-		Group_Headline.setText("Gruppe");
-		
-		Group_Member1.setVisible(false);
-		Group_Member2.setVisible(false);
-		Group_Member3.setVisible(false);
-		Group_Member4.setVisible(false);
-		Group_Member5.setVisible(false);
-	}
-	
 	static void Start_Reloader() {
 		
 		Group_Create.setText("Austreten");
@@ -133,8 +133,11 @@ public class GroupBar_Layout implements ActionListener {
 	
 	static void Escape_Group() {
 		
-		StartLayout.DeleteDir("Groups/" + User.User_Group[0] + "/" + User.User_Data[1] + ".txt");
+		StartLayout.DeleteDir("Groups/" + User.User_Group[0] + "/" + User.User_Data[2] + ".txt");
 
+		System.out.println("Gruppe: " + User.User_Group[0] );
+		System.out.println("Gruppe: " + User.User_Data[2] );
+		
 		List = StartLayout.getFiles("Groups/" + User.User_Group[0] + "/", List, 0);
 		
 		Group_Create.setText("Erstellen");
@@ -150,7 +153,7 @@ public class GroupBar_Layout implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 
 		if ( e.getSource() == Group_Create && User.InGroup == true ) {
-			
+						
 			User.InGroup = false;
 			CloseCreateGroup = true;
 			Escape_Group();	
@@ -187,6 +190,13 @@ public class GroupBar_Layout implements ActionListener {
 			List = StartLayout.getFiles("Groups/" + User.User_Group[0], List, 0);
 			
 			Group_Headline.setText(User.User_Group[0]);
+			
+			// If don't work
+			if ( User.InGroup == true && List.length == 0 ) {
+				
+				Group_Member1.setText(User.User_Data[2]);
+				Group_Member1.setVisible(true); 
+			} 
 			
 			if ( List.length > 0+2 ) { 
 			

@@ -4,11 +4,6 @@ import java.io.FileWriter;
 
 public class SafeGame {
 	
-	public SafeGame() {
-		
-		
-	}
-	
 	public static void SafeUserFromRegister(String Name) {
 
 		try {

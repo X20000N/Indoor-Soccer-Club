@@ -16,13 +16,13 @@ import Paket.User;
 public class GroupBar_02EnterGroup implements ActionListener {
 
 	static JInternalFrame Group_Enter = new JInternalFrame("Gruppe beitreten", false, true, false, false);
-	static JLabel Group_Internal_Background = new JLabel();
+	private static JLabel Group_Internal_Background = new JLabel();
 
-	static JLabel Group_EnterGroup_Lab = new JLabel();
-	static JButton Group_EnterGroup_But = new JButton();
-	static JComboBox<String> Group_EnterGroup_Box = new JComboBox<>();
+	private static JLabel Group_EnterGroup_Lab = new JLabel();
+	private static JButton Group_EnterGroup_But = new JButton();
+	private static JComboBox<String> Group_EnterGroup_Box = new JComboBox<>();
 	
-	static JLabel Group_EnterInfo = new JLabel();
+	private static JLabel Group_EnterInfo = new JLabel();
 
 	static String[] List = null;
 	

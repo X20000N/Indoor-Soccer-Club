@@ -39,6 +39,8 @@ public class Layout_13Overview implements ActionListener {
 	static JButton Overview_Previous = new JButton();
 	static JButton Overview_Next = new JButton();
 	
+	static JLabel Overview_FoundInfos = new JLabel();
+	
 	static int Place = 0;
 	
 	public Layout_13Overview() {
@@ -52,7 +54,6 @@ public class Layout_13Overview implements ActionListener {
 		Overview_Hall.setBounds(200,90,350,50);
 		Overview_Hall.setFont(Font_label);
 
-		Overview_Hall_2.setText("<keine Daten vorhanden>");
 		Overview_Hall_2.setBounds(320,90,400,50);
 		Overview_Hall_2.setFont(Font_label);
 
@@ -60,7 +61,6 @@ public class Layout_13Overview implements ActionListener {
 		Overview_Street.setBounds(200,140,350,50);
 		Overview_Street.setFont(Font_label);
 
-		Overview_Street_2.setText("<keine Daten vorhanden>");
 		Overview_Street_2.setBounds(320,140,400,50);
 		Overview_Street_2.setFont(Font_label);
 
@@ -68,7 +68,6 @@ public class Layout_13Overview implements ActionListener {
 		Overview_Adress.setBounds(200,190,350,50);
 		Overview_Adress.setFont(Font_label);
 
-		Overview_Adress_2.setText("<keine Daten vorhanden>");
 		Overview_Adress_2.setBounds(320,190,400,50);
 		Overview_Adress_2.setFont(Font_label);
 		
@@ -77,7 +76,6 @@ public class Layout_13Overview implements ActionListener {
 		Overview_Place.setBounds(200,240,350,50);
 		Overview_Place.setFont(Font_label);
 
-		Overview_Place_2.setText("<keine Daten vorhanden>");
 		Overview_Place_2.setForeground(new Color(0,148,255));
 		Overview_Place_2.setBounds(320,240,400,50);
 		Overview_Place_2.setFont(Font_label);
@@ -99,6 +97,10 @@ public class Layout_13Overview implements ActionListener {
 		Overview_Clock_2.setBounds(740,240,285,50);
 		Overview_Clock_2.setFont(Font_label);
 
+		Overview_FoundInfos.setText("Ergebnis 1 / 3");
+		Overview_FoundInfos.setBounds(645,345,285,50);
+		Overview_FoundInfos.setFont(new Font("Arial", Font.ITALIC, 20));
+		
 		// Image
 		Image.setBounds(32,100,135,180);
 		Image.setIcon(Image_pic);
@@ -113,19 +115,19 @@ public class Layout_13Overview implements ActionListener {
 		Overview_Cancel.setBounds(30,350,140,40);
 		Overview_Cancel.setFont(Font_button);
 
-		Overview_Previous.setText("Letzter Platz");
+		Overview_Previous.setText("Vorherige Platz");
 		Overview_Previous.addActionListener(this);
 		Overview_Previous.setBackground(new Color(167,210,168));
-		Overview_Previous.setBounds(200,350,160,40);
+		Overview_Previous.setBounds(200,350,190,40);
 		Overview_Previous.setFont(Font_button);
 
 		Overview_Next.setText("Nächster Platz");
 		Overview_Next.addActionListener(this);
 		Overview_Next.setBackground(new Color(167,210,168));
-		Overview_Next.setBounds(200,350,160,40);
+		Overview_Next.setBounds(420,350,190,40);
 		Overview_Next.setFont(Font_button);
 
-		Overview_Accept.setText("Bestätigen");
+		Overview_Accept.setText("Belegen");
 		Overview_Accept.addActionListener(this);
 		Overview_Accept.setBackground(new Color(167,210,168));
 		Overview_Accept.setBounds(30,410,140,40);
@@ -148,6 +150,7 @@ public class Layout_13Overview implements ActionListener {
 		StartLayout.L_Overview.add(Overview_Place_2);		
 		StartLayout.L_Overview.add(Overview_Date_2);
 		StartLayout.L_Overview.add(Overview_Clock_2);
+		StartLayout.L_Overview.add(Overview_FoundInfos);
 
 		StartLayout.L_Overview.add(Overview_Cancel);
 		StartLayout.L_Overview.add(Overview_Previous);
@@ -157,33 +160,24 @@ public class Layout_13Overview implements ActionListener {
 	
 	static void calculateButton() {
 		
-		boolean higherThanOne = false;
 		int current = Layout_12Games.ViewPlaceOverview;
 		int max = Layout_12Games.MaxPlace;
 
-		Overview_Previous.setVisible(false);
-		Overview_Next.setVisible(false);
+		Overview_FoundInfos.setText("Ergebnis " + current + " / " + max);
 		
+		Overview_Previous.setBackground(new Color(200,200,200));
+		Overview_Next.setBackground(new Color(200,200,200));
+
 		if ( current > 1 ) {
 
-			higherThanOne = true;
-			Overview_Previous.setVisible(true);
-			Overview_Previous.setLocation(200,350);
+			Overview_Previous.setBackground(new Color(167,210,168));
 		}
 		
 		if ( current < max ) {
 			
-			Overview_Next.setVisible(true);
-		
-			if ( higherThanOne == true ) {
-				
-				Overview_Next.setLocation(390,350);
-			
-			} else {
-			
-				Overview_Next.setLocation(200,350);				
-			}
+			Overview_Next.setBackground(new Color(167,210,168));
 		}
+		
 	}
 	
 	static void setOverviewPlaces(int Placenumber, String Clock) {
@@ -208,8 +202,8 @@ public class Layout_13Overview implements ActionListener {
 			                                    1];
 		
 		Overview_Hall_2.setText(hall);
-		Overview_Street_2.setText(street1 + ", " + street2);
-		Overview_Adress_2.setText(adress2 + ", " + adress1);
+		Overview_Street_2.setText(street1 + " " + street2);
+		Overview_Adress_2.setText(adress2 + " " + adress1);
 		Overview_Place_2.setText(place + " / " + placeSize);
 		
 		Overview_Clock_2.setText(Clock + " Uhr");
@@ -228,6 +222,7 @@ public class Layout_13Overview implements ActionListener {
 		Overview_Previous.setVisible(Editable);
 		Overview_Next.setVisible(Editable);
 		Overview_Accept.setVisible(Editable);
+		Overview_FoundInfos.setVisible(Editable);
 		
 		if ( Editable == true ) {
 			
@@ -252,6 +247,9 @@ public class Layout_13Overview implements ActionListener {
 			
 			OpenSide(false);
 			User.UpdatePlayGames();
+		
+			User.PlayGame = true;
+			SideBar.SideBar_Layout.Menu_Overview.setBackground(new Color(167,210,168));
 		}
 		
 		if ( e.getSource() == Overview_Previous ) {
@@ -278,6 +276,9 @@ public class Layout_13Overview implements ActionListener {
 		
 		if ( e.getSource() == Overview_Cancel ) {
 			
+			User.PlayGame = false;
+			SideBar.SideBar_Layout.Menu_Overview.setBackground(new Color(200,200,200));
+
 			Layout_12Games.OpenSide();
 		}
 		

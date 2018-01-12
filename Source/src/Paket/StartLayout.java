@@ -4,8 +4,10 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Image;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -14,13 +16,10 @@ import javax.swing.*;
 import org.apache.commons.net.ftp.FTPClient;
 import org.apache.commons.net.ftp.FTPFile;
 
-public class StartLayout {
-/*
-	public static String server = "";
-	public static int port = 21;
-	public static String user = "local";
-	public static String pw = "1234";
-*/
+import Sides.Layout_01Login;
+
+public class StartLayout implements WindowListener, ComponentListener {
+
 	public static String server = "";
 	public static int port = 21;
 	public static String user = "isc_auto";
@@ -58,8 +57,6 @@ public class StartLayout {
 	
 	public static String IP_Adress = "";
 			
-	Timer t = new Timer(1000, new CalculateLayout());
-
 	public StartLayout() {
 		
 		new User();
@@ -151,6 +148,8 @@ public class StartLayout {
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);	
 		f.setBounds(0,0,800,600);
 		f.setExtendedState(JFrame.MAXIMIZED_BOTH); 
+		f.addWindowListener(this);
+		f.addComponentListener(this);
 		
 		f.add(IMG);	
 		IMG.setLayout( new BorderLayout());
@@ -175,15 +174,13 @@ public class StartLayout {
 			Header.add(Header_logo);
 
 		f.setVisible(true);
-
-		t.start();
 		
 		CheckDirs();
 		setImages();
 		Sides.Layout_01Login.OpenSide();
 	}
 	
-	void CheckDirs() {
+	private void CheckDirs() {
 		
 		File fdir1 = new File("Users");
 		if ( !fdir1.exists() ) { fdir1.mkdir(); }
@@ -198,7 +195,7 @@ public class StartLayout {
 		if ( !fdir4.exists() ) { fdir4.mkdir(); }
 	}
 	
-	void setImages() {
+	private void setImages() {
 		
 		// SideBar
 		((ImageIcon) SideBar_img).setImage(((ImageIcon) SideBar_img).getImage().
@@ -234,10 +231,10 @@ public class StartLayout {
 		Mainground.setVisible(true);
 	}
 	
-	void CalculateLayout() {
+	private void CalculateLayout() {
 		
 		Footer.setBounds(0, f.getHeight()-80, f.getWidth(), 80);
-		RightBar.setBounds(f.getWidth()-180, 100, 180, f.getHeight()-80);		
+		RightBar.setBounds(f.getWidth()-180, 100, 180, f.getHeight()-160-20);		
 	}
 	
 	public static void setIP_Adress(String Adress) {
@@ -266,7 +263,15 @@ public class StartLayout {
 			// Save IP
 			StartLayout.setIP_Adress(IP);
 			
-		} catch (Exception e) { System.out.println("Error by FTP Connection 1"); }
+		} catch (Exception e) { 
+			
+			System.out.println("Error by FTP Connection 1"); 
+			
+			if ( User.Login == false ) {	
+				
+				Layout_01Login.Login_ErrorInfo.setText("Keine Verbindung gefunden.");
+			}
+		}
 	}
 	
 	public static void CreateDir(String dir) {
@@ -302,7 +307,10 @@ public class StartLayout {
 			ftp.logout();
 			ftp.disconnect();			
 		
-		} catch (Exception e) { System.out.println("Error by FTP Connection 3"); }
+		} catch (Exception e) { 
+			
+			System.out.println("Error by FTP Connection 3"); 
+		}
 	}
 	
 	public static void UploadFile(String Uploadfile, String NewFilePath) {
@@ -356,7 +364,7 @@ public class StartLayout {
 			ftp.enterLocalActiveMode();
 
 			FTPFile[] files = ftp.listFiles(FilePath);
-		 
+					 
 			List = new String[files.length];
 			int count = 0;
 			
@@ -376,12 +384,50 @@ public class StartLayout {
 		return List;
 
 	}
-	
-	class CalculateLayout implements ActionListener {
-		public void actionPerformed(ActionEvent e) {
 
-			CalculateLayout();
+	public void windowActivated(WindowEvent arg0) {
+		
+	}
+
+	public void windowClosed(WindowEvent arg0) { }
+
+	public void windowClosing(WindowEvent arg0) {
+			
+		if ( User.InGroup == true ) {
+			
+			System.out.println("Delete User form Group:");
+			System.out.println("Groupsﬂ/" + User.User_Group[0] + "/" + User.User_Data[2] + ".txt");
+			DeleteDir("Groups/" + User.User_Group[0] + "/" + User.User_Data[2] + ".txt");
 		}
+	
+		System.out.println("System Closed");
+	}
+
+	// WindowListener
+	public void windowDeactivated(WindowEvent arg0) {
+	}
+
+	public void windowDeiconified(WindowEvent arg0) {
+	}
+
+	public void windowIconified(WindowEvent arg0) {
+	}
+
+	public void windowOpened(WindowEvent arg0) {
+	}
+
+	// ComponentListener
+	public void componentHidden(ComponentEvent arg0) {
+	}
+
+	public void componentMoved(ComponentEvent arg0) {
+	}
+
+	public void componentResized(ComponentEvent arg0) {
+		CalculateLayout();
+	}
+
+	public void componentShown(ComponentEvent arg0) {
 	}
 	
 }

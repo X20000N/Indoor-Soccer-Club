@@ -12,13 +12,12 @@ import Paket.User;
 
 public class GroupBar_01CreateGroup implements ActionListener {
 	
-	static  JInternalFrame Group_Create = new JInternalFrame("Gruppe erstellen", false, true, false, false);
-
+	static JInternalFrame Group_Create = new JInternalFrame("Gruppe erstellen", false, true, false, false);
 	private JLabel Group_Internal_Background = new JLabel();
 	
 	private JLabel Group_CreateGroup_Lab = new JLabel();
 	private JButton Group_CreateGroup_But = new JButton();
-	static JTextField Group_CreateGroup_Tf = new JTextField();
+	private static JTextField Group_CreateGroup_Tf = new JTextField();
 
 	static JLabel Group_CreateInfo = new JLabel();
 
@@ -95,7 +94,8 @@ public class GroupBar_01CreateGroup implements ActionListener {
 						
 			Group_CreateGroup_Tf.setBackground(new Color(255,255,255));
 			
-			if ( !Group_CreateGroup_Tf.getText().equals("") ) {
+			if ( !Group_CreateGroup_Tf.getText().equals("") &&
+					Group_CreateGroup_Tf.getText().length() < 14 ) {
 				
 				// Create Gruppe
 				StartLayout.CreateDir("Groups/" + Group_CreateGroup_Tf.getText());
@@ -108,7 +108,10 @@ public class GroupBar_01CreateGroup implements ActionListener {
 				CloseSide();
 				GroupBar_02EnterGroup.CloseSide();
 				
-			} else { Group_CreateGroup_Tf.setBackground(new Color(200,0,10)); }
+			} else { 
+				
+				Group_CreateGroup_Tf.setBackground(new Color(200,0,10));
+			}
 		}
 		
 	}

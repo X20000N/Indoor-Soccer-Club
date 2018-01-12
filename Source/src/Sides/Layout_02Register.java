@@ -6,12 +6,8 @@ import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
-import java.nio.channels.FileChannel;
 
 import javax.swing.*;
 
@@ -138,9 +134,6 @@ public class Layout_02Register implements ActionListener {
 		
 		// Laoyut 
 		
-	//	StartLayout.L_Register.add(Register_OpenPic);
-	//	StartLayout.L_Register.add(Register_Picture);
-
 		StartLayout.L_Register.add(Register_Firstname);
 		StartLayout.L_Register.add(Register_Firstname_Tf);
 		StartLayout.L_Register.add(Register_Secondname);
@@ -161,33 +154,31 @@ public class Layout_02Register implements ActionListener {
 		StartLayout.L_Register.add(Register_Safe);
 	}
 	
-	@SuppressWarnings("resource")
-	void CopyPicture(File f) {
-
-		File p = new File("Users/" + Register_Secondname_Tf.getText() + ".png");
-		
-		FileChannel inChannel = null; 
-	    FileChannel outChannel = null;
-	    
-	    try { 
-	    	
-	    	inChannel = new FileInputStream(f).getChannel(); 
-	        outChannel = new FileOutputStream(p).getChannel(); 
-	        inChannel.transferTo(0, inChannel.size(), outChannel); 
-	        
-	    } catch (Exception e1) { }
-	}
-	
 	@SuppressWarnings("deprecation")
-	void CheckFields() {
+	private void CheckFields() {
 		
 		ResetAll();
 
 		boolean CreateUser = true;
 		
-		if ( Register_Firstname_Tf.getText().equals("") ) { 	CreateUser = false; Register_Firstname_Tf.setBackground(new Color(200,0,10)); }
-		if ( Register_Secondname_Tf.getText().equals("") ) { 	CreateUser = false; Register_Secondname_Tf.setBackground(new Color(200,0,10)); }
-		if ( Register_Place_Tf.getText().equals("") ) { 		CreateUser = false; Register_Place_Tf.setBackground(new Color(200,0,10)); }
+		if ( Register_Firstname_Tf.getText().equals("") ) { 	
+			
+			CreateUser = false; 
+			Register_Firstname_Tf.setBackground(new Color(200,0,10)); 
+		}
+		
+		if ( Register_Secondname_Tf.getText().equals("") ) {
+			
+			CreateUser = false; 
+			Register_Secondname_Tf.setBackground(new Color(200,0,10));
+		}
+		
+		if ( Register_Place_Tf.getText().equals("") ) { 		
+			
+			CreateUser = false; 
+			Register_Place_Tf.setBackground(new Color(200,0,10)); 
+		}
+		
 		if ( Register_Town_Tf.getText().equals("") ) { 			CreateUser = false; Register_Town_Tf.setBackground(new Color(200,0,10)); }
 		if ( Register_Password_Tf.getText().equals("") ) {		CreateUser = false; Register_Password_Tf.setBackground(new Color(200,0,10)); }
 				
@@ -201,7 +192,7 @@ public class Layout_02Register implements ActionListener {
 		
 	}
 	
-	int getHighestID() {
+	private int getHighestID() {
 		
 		StartLayout.DownloadFile("Material/NumberID.txt", "dir/NumberID.txt");
 		
@@ -227,7 +218,10 @@ public class Layout_02Register implements ActionListener {
 
 			fw.close();
 			
-		} catch (Exception e) { System.out.println("Error by ID"); }
+		} catch (Exception e) { 
+		
+			System.out.println("Error by ID"); 
+		}
 		
 		StartLayout.UploadFile("Material/NumberID.txt", "dir/NumberID.txt");
 		
@@ -245,7 +239,7 @@ public class Layout_02Register implements ActionListener {
 		Register_Picture.setIcon(Register_Picture_img);
 	}
 	
-	static void ResetAll() {
+	private static void ResetAll() {
 
 		Register_Firstname_Tf.setBackground(new Color(255,255,255));
 		Register_Secondname_Tf.setBackground(new Color(255,255,255));
@@ -282,13 +276,5 @@ public class Layout_02Register implements ActionListener {
 				LoadPic.showOpenDialog(null);
 			}
 		}
-		
-		if ( e.getSource() == LoadPic ) {
-			
-			File f = new File(LoadPic.getSelectedFile() + "");							
-			getPictureUrl(f.getPath());
-			CopyPicture(f);
-		}
-		
 	}
 }

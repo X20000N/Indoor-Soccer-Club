@@ -53,7 +53,7 @@ public class StartLayout implements WindowListener, ComponentListener {
 	
 	Icon SideBar_img = new ImageIcon(getClass().getResource("/_drawable/Sidebar.png"));
 	Icon Header_img = new ImageIcon(getClass().getResource("/_drawable/Header.png"));
-	Icon Footer_img = new ImageIcon(getClass().getResource("/_drawable/Footer.png"));
+//	Icon Footer_img = new ImageIcon(getClass().getResource("/_drawable/Footer.png"));
 	
 	public static String IP_Adress = "";
 			
@@ -85,29 +85,31 @@ public class StartLayout implements WindowListener, ComponentListener {
 		Header_logo.setIcon(Logo);
 		
 		IconHeader.setBounds(180,70,2000,30);
-		IconHeader.setBackground(new Color(123,191,113));
+		IconHeader.setBackground(new Color(160,180,169));
 		IconHeader.setOpaque(true);
 	
 		Divider.setBounds(0,0,2000,10);
 		Divider.setBackground(new Color(240,240,240));
 		Divider.setOpaque(true);
 		
-		Footer.setBackground(new Color(192,212,190));
+		Footer.setBackground(new Color(179,191,177));
 		Footer.setOpaque(true);
 
-		RightBar.setBackground(new Color(192,212,190));
+		RightBar.setBackground(new Color(211,211,211));
 		RightBar.setOpaque(true);
 		
 		SideBar.setBounds(0,70,180,2000);
-		SideBar.setBackground(new Color(69,165,71));
+		SideBar.setBackground(new Color(146,186,139));
 		SideBar.setOpaque(true);
 		
 		Mainground.setBounds(180,100,2000,2000);		
-		Mainground.setBackground(new Color(204,227,204));
+		Mainground.setBackground(new Color(224,226,224));
 		Mainground.setOpaque(true);
 		
 		Background.setBounds(0,0,2000,2000);
-		
+		Background.setOpaque(true);
+		Background.setBackground(new Color(10,10,10));
+
 		// Sides
 		
 		L_Login.setBounds(0,0,2000,2000);
@@ -196,21 +198,16 @@ public class StartLayout implements WindowListener, ComponentListener {
 	}
 	
 	private void setImages() {
-		
-		// SideBar
-		((ImageIcon) SideBar_img).setImage(((ImageIcon) SideBar_img).getImage().
-				getScaledInstance(180, 2000, Image.SCALE_DEFAULT));
-		SideBar.setIcon(SideBar_img);
-
-		// Footer
-		((ImageIcon) Footer_img).setImage(((ImageIcon) Footer_img).getImage().
-				getScaledInstance(2000, 80, Image.SCALE_DEFAULT));
-		Footer.setIcon(Footer_img);
 
 		// Header
 		((ImageIcon) Header_img).setImage(((ImageIcon) Header_img).getImage().
 				getScaledInstance(2000, 60, Image.SCALE_DEFAULT));
 		Header.setIcon(Header_img);	
+
+		// Header
+		((ImageIcon) SideBar_img).setImage(((ImageIcon) SideBar_img).getImage().
+				getScaledInstance(SideBar.getWidth(), SideBar.getHeight(), Image.SCALE_DEFAULT));
+		SideBar.setIcon(SideBar_img);	
 	}
 	
 	public static void CloseAllSides() {
@@ -233,8 +230,15 @@ public class StartLayout implements WindowListener, ComponentListener {
 	
 	private void CalculateLayout() {
 		
-		Footer.setBounds(0, f.getHeight()-80, f.getWidth(), 80);
-		RightBar.setBounds(f.getWidth()-180, 100, 180, f.getHeight()-160-20);		
+		Footer.setBounds(0, f.getHeight()-78, f.getWidth(), 80);
+		RightBar.setBounds(f.getWidth()-183, 93, 195, f.getHeight()-160-13);
+		
+		SideBar.setBounds(0,62,178,f.getHeight()-142);
+		Mainground.setBounds(180,93,f.getWidth()-365,f.getHeight()-173);	
+		
+		IconHeader.setBounds(180,62,f.getWidth()-180,30);
+		
+		Background.setBackground(new Color(100,100,100));
 	}
 	
 	public static void setIP_Adress(String Adress) {

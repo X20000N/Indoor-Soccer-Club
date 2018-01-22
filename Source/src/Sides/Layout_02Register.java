@@ -188,6 +188,7 @@ public class Layout_02Register implements ActionListener {
 			
 			SafeUser.SafeUserFromRegister(Register_Secondname_Tf.getText(), getHighestID());
 			Sides.Layout_01Login.OpenSide();
+			Sides.Layout_01Login.Connecting();
 		}
 		
 	}

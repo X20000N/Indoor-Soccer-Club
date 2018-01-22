@@ -32,7 +32,7 @@ public class GroupBar_02EnterGroup implements ActionListener {
 		
 		Group_Internal_Background.setBounds(0,0,2000,2000);
 		Group_Internal_Background.setOpaque(true);
-		Group_Internal_Background.setBackground(new Color(204,227,204));
+		Group_Internal_Background.setBackground(new Color(224,226,224));
 		
 		Font Font_label = new Font("Arial", Font.BOLD, 20);
 

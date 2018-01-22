@@ -210,7 +210,7 @@ public class Layout_01Login implements ActionListener, KeyListener {
 		ResetAll();
 	}
 	
-	private void Connecting() {
+	static void Connecting() {
 
 		try {
 		

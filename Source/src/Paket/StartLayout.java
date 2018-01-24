@@ -199,15 +199,19 @@ public class StartLayout implements WindowListener, ComponentListener {
 	
 	private void setImages() {
 
-		// Header
-		((ImageIcon) Header_img).setImage(((ImageIcon) Header_img).getImage().
-				getScaledInstance(2000, 60, Image.SCALE_DEFAULT));
-		Header.setIcon(Header_img);	
+		try {
+			
+			// Header
+			((ImageIcon) Header_img).setImage(((ImageIcon) Header_img).getImage().
+					getScaledInstance(2000, 60, Image.SCALE_DEFAULT));
+			Header.setIcon(Header_img);	
 
-		// Header
-		((ImageIcon) SideBar_img).setImage(((ImageIcon) SideBar_img).getImage().
-				getScaledInstance(SideBar.getWidth(), SideBar.getHeight(), Image.SCALE_DEFAULT));
-		SideBar.setIcon(SideBar_img);	
+			// SideBar
+			((ImageIcon) SideBar_img).setImage(((ImageIcon) SideBar_img).getImage().
+					getScaledInstance(SideBar.getWidth(), SideBar.getHeight(), Image.SCALE_DEFAULT));
+			SideBar.setIcon(SideBar_img);	
+		
+		} catch (Exception e) { }
 	}
 	
 	public static void CloseAllSides() {
@@ -239,6 +243,8 @@ public class StartLayout implements WindowListener, ComponentListener {
 		IconHeader.setBounds(180,62,f.getWidth()-180,30);
 		
 		Background.setBackground(new Color(100,100,100));
+		
+		setImages();
 	}
 	
 	public static void setIP_Adress(String Adress) {
